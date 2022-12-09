@@ -20,4 +20,10 @@ public class ShoppingController {
     {
         return "view all products";
     }
+
+    @PostMapping("/search")
+    public String SearchProduct()
+    {
+        return "search products";
+    }
 }
