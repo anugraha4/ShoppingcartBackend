@@ -1,16 +1,20 @@
 package com.example.ShoppingCartApp.controller;
 
+import com.example.ShoppingCartApp.dao.ShoppingDao;
 import com.example.ShoppingCartApp.model.Shopping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ShoppingController {
 
+    @Autowired
+    private ShoppingDao dao;
 
 
+    @CrossOrigin(origins = "*")
     @PostMapping(path="/",consumes = "application/json",produces = "application/json")
     public String AddProduct(@RequestBody Shopping s)
     {
@@ -19,15 +23,18 @@ public class ShoppingController {
         System.out.println(s.getCategory().toString());
         System.out.println(s.getDescription().toString());
         System.out.println(s.getPrice().toString());
+        dao.save(s);
         return "product added successfully";
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/view")
-    public String ViewAll()
+    public List<Shopping> ViewAll()
     {
-        return "view all products";
+        return (List<Shopping>) dao.findAll();
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/search")
     public String SearchProduct()
     {
