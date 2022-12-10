@@ -15,7 +15,7 @@ public class ShoppingController {
 
 
     @CrossOrigin(origins = "*")
-    @PostMapping(path="/",consumes = "application/json",produces = "application/json")
+    @PostMapping(path="/add",consumes = "application/json",produces = "application/json")
     public String AddProduct(@RequestBody Shopping s)
     {
         System.out.println(s.getProductname().toString());
